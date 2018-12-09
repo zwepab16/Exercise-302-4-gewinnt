@@ -19,14 +19,18 @@ public class VierGUI extends JFrame {
 
      
     public VierGUI() {
-        for (int spalten = 6; spalten >= 0; spalten--) {
-            for (int zeile = 5; zeile >= 0; zeile--) {
+       int inter=0;
+        for (int zeile = 0; zeile <6; zeile++) {
+            for (int spalten = 0; spalten < 7; spalten++) {
                 JLabel l = new JLabel();
                 l.setBorder(new LineBorder(Color.black, 1));
                 l.setName(spalten + "" + zeile);
+                l.setText(spalten + ":::" + zeile+"Num:"+inter);
                 l.setOpaque(true);
                 labels[spalten][zeile] = l;
+                inter++;
             }
+        
 
         }
 
@@ -57,10 +61,10 @@ public class VierGUI extends JFrame {
          JPanel playground = new JPanel();
         playground.setLayout(new GridLayout(6, 7));
         playground.setBackground(Color.LIGHT_GRAY);
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 6; j++) {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
 
-                playground.add(labels[i][j]);
+                playground.add(labels[j][i]);
             }
 
         }
@@ -81,11 +85,12 @@ public class VierGUI extends JFrame {
             Value val = bl.getVAlueAt(platz);
             switch (val) {
                 case PLAYER1:
-                    labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.red);System.out.println(val);
-                    System.out.println(bl.getSpalteZeile()[0]+"nji"+bl.getSpalteZeile()[1]+"");
+                    labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.red);System.out.println("Spieler:"+val);
+                   System.out.println("Spalte:"+bl.getSpalteZeile()[0]+"Zeile:"+bl.getSpalteZeile()[1]+"");
                     break;
                 case PLAYER2:
-                    labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.blue);
+                    labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.blue);System.out.println("Spieler:"+val);
+                     System.out.println("Spalte:"+bl.getSpalteZeile()[0]+"Zeile:"+bl.getSpalteZeile()[1]+"");
                     break;
                     case DRAW:
                         System.out.println("Draw");break;
@@ -100,7 +105,7 @@ public class VierGUI extends JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+        System.out.println("---------------Zug ende-------------------");
     }
 
     public static void main(String[] args) {

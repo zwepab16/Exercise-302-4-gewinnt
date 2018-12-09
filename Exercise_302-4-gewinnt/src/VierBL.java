@@ -19,17 +19,19 @@ public class VierBL {
         player = Value.PLAYER1;
     }
     public Value makeMove(int spalte) throws Exception{
-        System.out.println(spalte+"Move");
-        for(int i=5;i>=0;i--){
-            if(field[spalte][i]==Value.EMPTY){
-                field[spalte][i]=player;
-                break;
-            }
-        }
+        
         if (field[spalte][0] != Value.EMPTY) {
             throw new Exception("Nicht möglich!");
 
         }
+        for(int i=5;i>=0;i--){
+            if(field[spalte][i]==Value.EMPTY){
+                field[spalte][i]=player;
+                System.out.println("Spalte:"+spalte+" Zeile:"+i+" Spieler:"+player);
+                break;
+            }
+        }
+        
 
       if(player==Value.PLAYER1){
       player=Value.PLAYER2;
@@ -43,8 +45,8 @@ public class VierBL {
     }
     
     public Value getVAlueAt(int spalte) {
-         for(int i=5;i>=0;i--){
-            if(field[spalte][i]!=Value.EMPTY){
+         for(int i=5;i>0;i--){
+            if(field[spalte][i+1]==Value.EMPTY){
                 spalteZeile[0]=spalte;
          spalteZeile[1]=i;
              return field[spalte][i];
