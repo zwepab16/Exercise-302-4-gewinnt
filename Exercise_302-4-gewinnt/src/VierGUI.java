@@ -17,8 +17,11 @@ public class VierGUI extends JFrame {
     private JLabel[][] labels = new JLabel[7][6];
     VierBL bl = new VierBL();
 
-    public VierGUI() {
-        int inter = 0;
+     public VierGUI() {
+      befülle();
+    }
+    public void befülle(){
+          int inter = 0;
         for (int zeile = 0; zeile < 6; zeile++) {
             for (int spalten = 0; spalten < 7; spalten++) {
                 JLabel l = new JLabel();
@@ -52,12 +55,7 @@ public class VierGUI extends JFrame {
         }
 
         this.add(buttonPanel, BorderLayout.NORTH);
-        erstelleSpielfeld();
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    public void erstelleSpielfeld() {
-        JPanel playground = new JPanel();
+         JPanel playground = new JPanel();
         playground.setLayout(new GridLayout(6, 7));
         playground.setBackground(Color.LIGHT_GRAY);
         for (int i = 0; i < 6; i++) {
@@ -68,7 +66,11 @@ public class VierGUI extends JFrame {
 
         }
         this.add(playground);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+   
+
+    
 
     public void move(ActionEvent event) {
         JButton b = (JButton) event.getSource();
@@ -99,9 +101,17 @@ public class VierGUI extends JFrame {
 
             }
 
-            repaint();
+           
             if (winner != Value.EMPTY) {
                 JOptionPane.showMessageDialog(this, "The Winner is " + winner);
+                bl.reset();
+                befülle();
+                repaint();
+                this.repaint();
+                this.dispose();
+                    new VierGUI().setVisible(true);
+                
+                
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -110,7 +120,7 @@ public class VierGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        new VierGUI().setVisible(true);
+      new VierGUI().setVisible(true);
 
     }
 

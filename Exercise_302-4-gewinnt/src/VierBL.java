@@ -67,22 +67,29 @@ public class VierBL {
     }
     public Value testWinner(){
         for (int i = 0; i < 7; i++) {
-            int zeilensum = 0;
-            for (int j = 0; j < 6; j++) {
-                zeilensum += field[i][j].getNum();
-            }
-            if (zeilensum == 4) {
-                return Value.PLAYER1;
-
-            }
-            if (zeilensum == -4) {
-                return Value.PLAYER2;
-
-            }
+           
+            for (int j = 0; j < 3; j++) {
+			if(	field[i][j] == Value.PLAYER1 &&
+				field[i][j+1] == Value.PLAYER1 &&
+				field[i][j+2] == Value.PLAYER1 &&
+				field[i][j+3] == Value.PLAYER1)
+			{
+				return Value.PLAYER1;
+			}
         }
-        return Value.EMPTY;
+             for (int j = 0; j < 3; j++) {
+			if(	field[i][j] == Value.PLAYER2 &&
+				field[i][j+1] == Value.PLAYER2 &&
+				field[i][j+2] == Value.PLAYER2 &&
+				field[i][j+3] == Value.PLAYER2)
+			{
+				return Value.PLAYER2;
+			}
+        }
+       
     }
-
+         return Value.EMPTY;
+    }
     public int[] getSpalteZeile() {
         return spalteZeile;
     }
