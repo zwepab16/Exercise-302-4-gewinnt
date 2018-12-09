@@ -1,4 +1,5 @@
 
+import com.sun.corba.se.impl.util.PackagePrefixChecker;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -8,20 +9,28 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 public class VierGUI extends JFrame {
 
     private JLabel[][] labels = new JLabel[7][6];
-    VierBL bl = new VierBL();
+    private VierBL bl = new VierBL();
+    private JLabel currentPlayer = new JLabel("Spieler 1 beginnt", SwingConstants.CENTER);
 
-     public VierGUI() {
-      befülle();
+    public VierGUI() {
+        DialogFürName d=new DialogFürName();
+        d.setVisible(true);
+        befülle();
     }
-    public void befülle(){
-          int inter = 0;
+
+    public void befülle() {
+        int inter = 0;
         for (int zeile = 0; zeile < 6; zeile++) {
             for (int spalten = 0; spalten < 7; spalten++) {
                 JLabel l = new JLabel();
@@ -38,6 +47,10 @@ public class VierGUI extends JFrame {
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
+
+        JPanel menü = new JPanel();
+        menü.setBorder(new LineBorder(Color.black, 1));
+        menü.setLayout(new GridLayout(3, 1));
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBorder(new LineBorder(Color.white, 1));
         buttonPanel.setLayout(new GridLayout(1, 7));
@@ -54,8 +67,28 @@ public class VierGUI extends JFrame {
             buttonPanel.add(b);
         }
 
-        this.add(buttonPanel, BorderLayout.NORTH);
-         JPanel playground = new JPanel();
+        JMenuBar menueBar = new JMenuBar();
+        JMenuItem newGame = new JMenuItem("neues Spiel");
+        newGame.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ev) {
+            neuStart(); 
+        }
+    });
+        menueBar.add(newGame);
+        JMenuItem end = new JMenuItem("Spiel beenden");
+         end.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ev) {
+                System.exit(0);
+        }
+    });
+        menueBar.add(end);
+        menü.add(menueBar);
+        menü.add(currentPlayer);
+        menü.add(buttonPanel);
+        this.add(menü, BorderLayout.NORTH);
+        
+        
+        JPanel playground = new JPanel();
         playground.setLayout(new GridLayout(6, 7));
         playground.setBackground(Color.LIGHT_GRAY);
         for (int i = 0; i < 6; i++) {
@@ -67,10 +100,8 @@ public class VierGUI extends JFrame {
         }
         this.add(playground);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-   
 
-    
+    }
 
     public void move(ActionEvent event) {
         JButton b = (JButton) event.getSource();
@@ -89,36 +120,42 @@ public class VierGUI extends JFrame {
                     labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.red);
                     System.out.println("Spieler:" + val);
                     System.out.println("Spalte:" + bl.getSpalteZeile()[0] + "Zeile:" + bl.getSpalteZeile()[1] + "");
+                    currentPlayer.setText(Value.PLAYER2.getAction()+" ist jetzt dran!");
+                   
                     break;
                 case PLAYER2:
                     labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.blue);
                     System.out.println("Spieler:" + val);
                     System.out.println("Spalte:" + bl.getSpalteZeile()[0] + "Zeile:" + bl.getSpalteZeile()[1] + "");
+                     currentPlayer.setText(Value.PLAYER1.getAction()+" ist jetzt dran!");
+                  
                     break;
                 case DRAW:
                     System.out.println("Draw");
                     break;
 
             }
-
-           
+            
+            
             if (winner != Value.EMPTY) {
-                JOptionPane.showMessageDialog(this, "The Winner is " + winner);
-                bl.reset();
-           
-                this.dispose();
-                    new VierGUI().setVisible(true);
-                
-                
+                JOptionPane.showMessageDialog(this, "Der Gewinner ist:  " + winner.getAction());
+                neuStart();
+
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         System.out.println("---------------Zug ende-------------------");
     }
+    public void neuStart(){
+        bl.reset();
+
+                this.dispose();
+                new VierGUI().setVisible(true);
+    }
 
     public static void main(String[] args) {
-      new VierGUI().setVisible(true);
+        new VierGUI().setVisible(true);
 
     }
 

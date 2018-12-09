@@ -99,7 +99,7 @@ public class VierBL {
                     return Value.PLAYER1;
                 }
             }
-             for (int j = 0; j < 6; j++) {
+            for (int j = 0; j < 6; j++) {
 
                 if (field[i][j] == Value.PLAYER2
                         && field[i + 1][j] == Value.PLAYER2
@@ -122,7 +122,7 @@ public class VierBL {
                     return Value.PLAYER1;
                 }
             }
-             for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 3; j++) {
 
                 if (field[i][j] == Value.PLAYER2
                         && field[i + 1][j + 1] == Value.PLAYER2

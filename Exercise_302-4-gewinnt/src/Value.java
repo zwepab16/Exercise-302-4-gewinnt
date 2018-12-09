@@ -1,14 +1,20 @@
 
 public enum Value {
-    PLAYER1(1), PLAYER2(-1), EMPTY(0),DRAW(42);
+    PLAYER1("Spieler 1"), PLAYER2("Spieler 2"), EMPTY("Nix"),DRAW("");
 
-    private final int num;
+     private String action;
 
-    Value(int num) {
-        this.num = num;
+    public String getAction() {
+        return this.action;
     }
 
-    public int getNum() {
-        return num;
+    private Value(String action) {
+        this.action = action;
     }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+    
+
 }
