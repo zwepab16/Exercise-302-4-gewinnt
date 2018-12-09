@@ -45,11 +45,20 @@ public class VierBL {
     }
     
     public Value getVAlueAt(int spalte) {
-         for(int i=5;i>0;i--){
+         for(int i=5;i>=0;i--){
+             if(i>0){
             if(field[spalte][i-1]==Value.EMPTY){
+                
                 spalteZeile[0]=spalte;
          spalteZeile[1]=i;
              return field[spalte][i];
+             
+            }
+             }
+            else{
+                 spalteZeile[0]=spalte;
+         spalteZeile[1]=0;
+                return field[spalte][0];
             }
          }
          

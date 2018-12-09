@@ -17,20 +17,18 @@ public class VierGUI extends JFrame {
     private JLabel[][] labels = new JLabel[7][6];
     VierBL bl = new VierBL();
 
-     
     public VierGUI() {
-       int inter=0;
-        for (int zeile = 0; zeile <6; zeile++) {
+        int inter = 0;
+        for (int zeile = 0; zeile < 6; zeile++) {
             for (int spalten = 0; spalten < 7; spalten++) {
                 JLabel l = new JLabel();
                 l.setBorder(new LineBorder(Color.black, 1));
                 l.setName(spalten + "" + zeile);
-                l.setText(spalten + ":::" + zeile+"Num:"+inter);
+                l.setText(spalten + ":::" + zeile + "Num:" + inter);
                 l.setOpaque(true);
                 labels[spalten][zeile] = l;
                 inter++;
             }
-        
 
         }
 
@@ -54,11 +52,12 @@ public class VierGUI extends JFrame {
         }
 
         this.add(buttonPanel, BorderLayout.NORTH);
-       erstelleSpielfeld();
+        erstelleSpielfeld();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    public void erstelleSpielfeld(){
-         JPanel playground = new JPanel();
+
+    public void erstelleSpielfeld() {
+        JPanel playground = new JPanel();
         playground.setLayout(new GridLayout(6, 7));
         playground.setBackground(Color.LIGHT_GRAY);
         for (int i = 0; i < 6; i++) {
@@ -76,28 +75,30 @@ public class VierGUI extends JFrame {
         try {
             JLabel l = new JLabel();
             int platz = Integer.parseInt(b.getName());
-           
+
             System.out.println(b.getName() + "Platz");
 
             Value winner = bl.makeMove(platz);
             System.out.println(winner);
-            
+
             Value val = bl.getVAlueAt(platz);
             switch (val) {
                 case PLAYER1:
-                    labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.red);System.out.println("Spieler:"+val);
-                   System.out.println("Spalte:"+bl.getSpalteZeile()[0]+"Zeile:"+bl.getSpalteZeile()[1]+"");
+                    labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.red);
+                    System.out.println("Spieler:" + val);
+                    System.out.println("Spalte:" + bl.getSpalteZeile()[0] + "Zeile:" + bl.getSpalteZeile()[1] + "");
                     break;
                 case PLAYER2:
-                    labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.blue);System.out.println("Spieler:"+val);
-                     System.out.println("Spalte:"+bl.getSpalteZeile()[0]+"Zeile:"+bl.getSpalteZeile()[1]+"");
+                    labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.blue);
+                    System.out.println("Spieler:" + val);
+                    System.out.println("Spalte:" + bl.getSpalteZeile()[0] + "Zeile:" + bl.getSpalteZeile()[1] + "");
                     break;
-                    case DRAW:
-                        System.out.println("Draw");break;
+                case DRAW:
+                    System.out.println("Draw");
+                    break;
 
             }
-         
-         
+
             repaint();
             if (winner != Value.EMPTY) {
                 JOptionPane.showMessageDialog(this, "The Winner is " + winner);
