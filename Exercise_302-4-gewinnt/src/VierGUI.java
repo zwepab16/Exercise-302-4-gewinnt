@@ -105,9 +105,7 @@ public class VierGUI extends JFrame {
             if (winner != Value.EMPTY) {
                 JOptionPane.showMessageDialog(this, "The Winner is " + winner);
                 bl.reset();
-                befülle();
-                repaint();
-                this.repaint();
+           
                 this.dispose();
                     new VierGUI().setVisible(true);
                 
