@@ -19,11 +19,18 @@ public class VierGUI extends JFrame {
 
     private JLabel[][] labels = new JLabel[7][6];
     private VierBL bl = new VierBL();
-    private JLabel currentPlayer = new JLabel("Spieler 1 beginnt", SwingConstants.CENTER);
+    private JLabel currentPlayer = new JLabel(Value.PLAYER1.getAction()+" beginnnt!", SwingConstants.CENTER);
 
     public VierGUI() {
-//        DialogFürName d=new DialogFürName();
-//        d.setVisible(true);
+        setEnabled(false);
+        DialogFürName d=new DialogFürName(new JFrame(),true);
+        d.setVisible(true);
+        if(d.getOk()){
+            Value.PLAYER1.setAction(d.getNames()[0]);
+            Value.PLAYER2.setAction(d.getNames()[1]);
+            currentPlayer=new JLabel(Value.PLAYER1.getAction()+" beginnnt!", SwingConstants.CENTER);
+        }
+        setEnabled(true);
         befülle();
     }
 
@@ -35,6 +42,7 @@ public class VierGUI extends JFrame {
                 l.setBorder(new LineBorder(Color.black, 1));
                 //l.setName(spalten + "" + zeile);
                 //l.setText(spalten + ":::" + zeile + "Num:" + inter);
+                l.setBackground(Color.WHITE);
                 l.setOpaque(true);
                 labels[spalten][zeile] = l;
                 inter++;
@@ -138,12 +146,14 @@ public class VierGUI extends JFrame {
             }
 
             if (winner != Value.EMPTY) {
-                JOptionPane.showMessageDialog(this, "Der Gewinner ist:  " + winner.getAction());
+               if(winner!= Value.DRAW) JOptionPane.showMessageDialog(this, "Der Gewinner ist:  " + winner.getAction());
+               else JOptionPane.showMessageDialog(this, ""+winner.getAction());
                 neuStart();
 
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            
         }
 //        System.out.println("---------------Zug ende-------------------");
     }
