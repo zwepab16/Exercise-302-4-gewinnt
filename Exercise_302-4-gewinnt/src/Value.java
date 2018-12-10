@@ -1,6 +1,6 @@
 
 public enum Value {
-    PLAYER1("Spieler 1"), PLAYER2("Spieler 2"), EMPTY("Nix"),DRAW("");
+    PLAYER1("Spieler 1"), PLAYER2("Spieler 2"), EMPTY("Nix"),DRAW("Unentschieden");
 
      private String action;
 

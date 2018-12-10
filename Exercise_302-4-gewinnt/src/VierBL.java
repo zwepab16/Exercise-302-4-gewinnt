@@ -4,6 +4,7 @@ public class VierBL {
     private Value[][] field = new Value[7][6];//Spalten|Zeilen
     private Value player;
     private int[] spalteZeile = new int[2];
+    private int spielzug;
 
     public VierBL() {
         reset();
@@ -29,7 +30,7 @@ public class VierBL {
         for (int i = 5; i >= 0; i--) {
             if (field[spalte][i] == Value.EMPTY) {
                 field[spalte][i] = player;
-                System.out.println("Spalte:" + spalte + " Zeile:" + i + " Spieler:" + player);
+//                System.out.println("Spalte:" + spalte + " Zeile:" + i + " Spieler:" + player);
                 break;
             }
         }
@@ -39,7 +40,7 @@ public class VierBL {
         } else {
             player = Value.PLAYER1;
         }
-
+        spielzug++;
         return testWinner();
 
     }
@@ -131,6 +132,32 @@ public class VierBL {
                     return Value.PLAYER2;
                 }
             }
+        }
+        //---------------------------------------------------------
+        for (int i = 0; i < 4; i++) {
+            for (int y = 3; y < 6; y++) {
+                if (field[i][y] == Value.PLAYER1
+                        && field[i + 1][y - 1] == Value.PLAYER1
+                        && field[i + 2][y - 2] == Value.PLAYER1
+                        && field[i + 3][y - 3] == Value.PLAYER1) {
+                    return Value.PLAYER1;
+                }
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            for (int y = 3; y < 6; y++) {
+                if (field[i][y] == Value.PLAYER2
+                        && field[i + 1][y - 1] == Value.PLAYER2
+                        && field[i + 2][y - 2] == Value.PLAYER2
+                        && field[i + 3][y - 3] == Value.PLAYER2) {
+                    return Value.PLAYER2;
+                }
+            }
+        }
+
+        //  System.out.println("Spielzug: "+spielzug);
+        if (spielzug == 42) {
+            return Value.DRAW;
         }
 
         return Value.EMPTY;

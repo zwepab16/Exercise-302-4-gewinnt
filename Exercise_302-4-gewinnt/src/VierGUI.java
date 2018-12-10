@@ -1,5 +1,4 @@
 
-import com.sun.corba.se.impl.util.PackagePrefixChecker;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -9,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -24,8 +22,8 @@ public class VierGUI extends JFrame {
     private JLabel currentPlayer = new JLabel("Spieler 1 beginnt", SwingConstants.CENTER);
 
     public VierGUI() {
-        DialogFürName d=new DialogFürName();
-        d.setVisible(true);
+//        DialogFürName d=new DialogFürName();
+//        d.setVisible(true);
         befülle();
     }
 
@@ -35,8 +33,8 @@ public class VierGUI extends JFrame {
             for (int spalten = 0; spalten < 7; spalten++) {
                 JLabel l = new JLabel();
                 l.setBorder(new LineBorder(Color.black, 1));
-                l.setName(spalten + "" + zeile);
-                l.setText(spalten + ":::" + zeile + "Num:" + inter);
+                //l.setName(spalten + "" + zeile);
+                //l.setText(spalten + ":::" + zeile + "Num:" + inter);
                 l.setOpaque(true);
                 labels[spalten][zeile] = l;
                 inter++;
@@ -68,26 +66,29 @@ public class VierGUI extends JFrame {
         }
 
         JMenuBar menueBar = new JMenuBar();
+        menueBar.setBorder(new LineBorder(Color.black, 2));
         JMenuItem newGame = new JMenuItem("neues Spiel");
+        newGame.setBorder(new LineBorder(Color.black, 2));
         newGame.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent ev) {
-            neuStart(); 
-        }
-    });
+            public void actionPerformed(ActionEvent ev) {
+                neuStart();
+            }
+        });
+       
         menueBar.add(newGame);
         JMenuItem end = new JMenuItem("Spiel beenden");
-         end.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent ev) {
+        end.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
                 System.exit(0);
-        }
-    });
+            }
+        });
+        end.setBorder(new LineBorder(Color.black, 2));
         menueBar.add(end);
         menü.add(menueBar);
         menü.add(currentPlayer);
         menü.add(buttonPanel);
         this.add(menü, BorderLayout.NORTH);
-        
-        
+
         JPanel playground = new JPanel();
         playground.setLayout(new GridLayout(6, 7));
         playground.setBackground(Color.LIGHT_GRAY);
@@ -109,34 +110,33 @@ public class VierGUI extends JFrame {
             JLabel l = new JLabel();
             int platz = Integer.parseInt(b.getName());
 
-            System.out.println(b.getName() + "Platz");
+//            System.out.println(b.getName() + "Platz");
 
             Value winner = bl.makeMove(platz);
-            System.out.println(winner);
+//            System.out.println(winner);
 
             Value val = bl.getVAlueAt(platz);
             switch (val) {
                 case PLAYER1:
                     labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.red);
-                    System.out.println("Spieler:" + val);
-                    System.out.println("Spalte:" + bl.getSpalteZeile()[0] + "Zeile:" + bl.getSpalteZeile()[1] + "");
-                    currentPlayer.setText(Value.PLAYER2.getAction()+" ist jetzt dran!");
-                   
+//                    System.out.println("Spieler:" + val);
+//                    System.out.println("Spalte:" + bl.getSpalteZeile()[0] + "Zeile:" + bl.getSpalteZeile()[1] + "");
+                    currentPlayer.setText(Value.PLAYER2.getAction() + " ist jetzt dran!");
+
                     break;
                 case PLAYER2:
                     labels[bl.getSpalteZeile()[0]][bl.getSpalteZeile()[1]].setBackground(Color.blue);
-                    System.out.println("Spieler:" + val);
-                    System.out.println("Spalte:" + bl.getSpalteZeile()[0] + "Zeile:" + bl.getSpalteZeile()[1] + "");
-                     currentPlayer.setText(Value.PLAYER1.getAction()+" ist jetzt dran!");
-                  
+//                    System.out.println("Spieler:" + val);
+//                    System.out.println("Spalte:" + bl.getSpalteZeile()[0] + "Zeile:" + bl.getSpalteZeile()[1] + "");
+                    currentPlayer.setText(Value.PLAYER1.getAction() + " ist jetzt dran!");
+
                     break;
                 case DRAW:
-                    System.out.println("Draw");
+//                    System.out.println("Draw");
                     break;
 
             }
-            
-            
+
             if (winner != Value.EMPTY) {
                 JOptionPane.showMessageDialog(this, "Der Gewinner ist:  " + winner.getAction());
                 neuStart();
@@ -145,13 +145,14 @@ public class VierGUI extends JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println("---------------Zug ende-------------------");
+//        System.out.println("---------------Zug ende-------------------");
     }
-    public void neuStart(){
+
+    public void neuStart() {
         bl.reset();
 
-                this.dispose();
-                new VierGUI().setVisible(true);
+        this.dispose();
+        new VierGUI().setVisible(true);
     }
 
     public static void main(String[] args) {
