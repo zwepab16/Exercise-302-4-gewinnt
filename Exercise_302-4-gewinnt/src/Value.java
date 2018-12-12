@@ -1,8 +1,8 @@
 
 public enum Value {
-    PLAYER1("Spieler 1"), PLAYER2("Spieler 2"), EMPTY("Nix"),DRAW("Unentschieden");
+    PLAYER1("Spieler 1"), PLAYER2("Spieler 2"), EMPTY("Nix"), DRAW("Unentschieden");
 
-     private String action;
+    private String action;
 
     public String getAction() {
         return this.action;
@@ -15,6 +15,5 @@ public enum Value {
     public void setAction(String action) {
         this.action = action;
     }
-    
 
 }

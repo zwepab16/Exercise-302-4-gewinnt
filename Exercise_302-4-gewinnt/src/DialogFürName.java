@@ -1,8 +1,6 @@
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -76,7 +74,7 @@ public class DialogFürName extends JDialog {
                 names[0] = name1.getText();
                 names[1] = name2.getText();
                 größe[0]=spalten.getValue();
-                 größe[1]=zeilen.getValue();
+                größe[1]=zeilen.getValue();
                 ok = true;
 
                 dispose();

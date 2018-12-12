@@ -18,31 +18,30 @@ import javax.swing.border.LineBorder;
 public class VierGUI extends JFrame {
 
     private JLabel[][] labels = new JLabel[7][6];
-    private VierBL bl; 
-    private JLabel currentPlayer = new JLabel(Value.PLAYER1.getAction()+" beginnnt!", SwingConstants.CENTER);
-    private int hauptSpalten=12,hauptZeilen=11;
+    private VierBL bl;
+    private JLabel currentPlayer = new JLabel(Value.PLAYER1.getAction() + " beginnnt!", SwingConstants.CENTER);
+    private int hauptSpalten = 12, hauptZeilen = 11;
 
     public VierGUI() {
         this.setTitle("4-Gewinnt.exe");
-        DialogFürName d=new DialogFürName(new JFrame(),true);
+        DialogFürName d = new DialogFürName(new JFrame(), true);
         d.setVisible(true);
-        if(d.getOk()){
-            hauptSpalten=d.getGröße()[0];
-            hauptZeilen=d.getGröße()[1];
-            bl= new VierBL(hauptSpalten,hauptZeilen);
+        if (d.getOk()) {
+            hauptSpalten = d.getGröße()[0];
+            hauptZeilen = d.getGröße()[1];
+            bl = new VierBL(hauptSpalten, hauptZeilen);
             Value.PLAYER1.setAction(d.getNames()[0]);
             Value.PLAYER2.setAction(d.getNames()[1]);
-            currentPlayer=new JLabel(Value.PLAYER1.getAction()+" beginnnt!", SwingConstants.CENTER);
-            }
-        else{
-           
-                System.exit(0);
-            
+            currentPlayer = new JLabel(Value.PLAYER1.getAction() + " beginnnt!", SwingConstants.CENTER);
+        } else {
+
+            System.exit(0);
+
         }
-        
+
         labels = new JLabel[hauptSpalten][hauptZeilen];
         setEnabled(false);
-        
+
         setEnabled(true);
         befülle();
     }
@@ -95,7 +94,7 @@ public class VierGUI extends JFrame {
                 neuStart();
             }
         });
-       
+
         menueBar.add(newGame);
         JMenuItem end = new JMenuItem("Spiel beenden");
         end.addActionListener(new ActionListener() {
@@ -105,6 +104,18 @@ public class VierGUI extends JFrame {
         });
         end.setBorder(new LineBorder(Color.black, 2));
         menueBar.add(end);
+        JMenuItem liste = new JMenuItem("Bestenliste");
+        liste.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                System.out.println("sfgdfg");
+               
+                BestenListeGUI d=new BestenListeGUI();
+              d.setVisible(true);
+            }
+        });
+        liste.setBorder(new LineBorder(Color.black, 2));
+        menueBar.add(liste);
+        
         menü.add(menueBar);
         menü.add(currentPlayer);
         menü.add(buttonPanel);
@@ -132,7 +143,6 @@ public class VierGUI extends JFrame {
             int platz = Integer.parseInt(b.getName());
 
 //            System.out.println(b.getName() + "Platz");
-
             Value winner = bl.makeMove(platz);
 //            System.out.println(winner);
 
@@ -159,14 +169,18 @@ public class VierGUI extends JFrame {
             }
 
             if (winner != Value.EMPTY) {
-               if(winner!= Value.DRAW) JOptionPane.showMessageDialog(this, "Der Gewinner ist:  " + winner.getAction());
-               else JOptionPane.showMessageDialog(this, ""+winner.getAction());
+                if (winner != Value.DRAW) {
+                    JOptionPane.showMessageDialog(this, "Der Gewinner ist:  " + winner.getAction());
+                } else {
+                    JOptionPane.showMessageDialog(this, "" + winner.getAction());
+                }
                 neuStart();
 
             }
         } catch (Exception ex) {
+            System.out.println("Fehler");
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            
+
         }
 //        System.out.println("---------------Zug ende-------------------");
     }
@@ -177,8 +191,6 @@ public class VierGUI extends JFrame {
         this.dispose();
         new VierGUI().setVisible(true);
     }
-
-    
 
     public static void main(String[] args) {
         new VierGUI().setVisible(true);

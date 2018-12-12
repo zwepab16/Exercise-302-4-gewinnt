@@ -1,21 +1,23 @@
 
 public class VierBL {
 
-    private Value[][] field=new Value[7][6]; 
+    private Value[][] field = new Value[7][6];
     private Value player;
     private int[] spalteZeile = new int[2];
     private int spielzug;
-     private int hauptSpalten=12,hauptZeilen=11; 
+    private int hauptSpalten = 12, hauptZeilen = 11;
+    private BestenListeTabel bl=new BestenListeTabel();
 
-    public VierBL(int sp,int ze) {
-        hauptSpalten=sp;
-        hauptZeilen=ze;
-        field= new Value[hauptSpalten][hauptZeilen];//Spalten|Zeilen
+    public VierBL(int sp, int ze) {
+        hauptSpalten = sp;
+        hauptZeilen = ze;
+        field = new Value[hauptSpalten][hauptZeilen];//Spalten|Zeilen
         reset();
     }
 
     public void reset() {
-    
+       
+        
         for (int spalten = 0; spalten < hauptSpalten; spalten++) {
             for (int zeilen = 0; zeilen < hauptZeilen; zeilen++) {
                 field[spalten][zeilen] = Value.EMPTY;
@@ -26,12 +28,12 @@ public class VierBL {
     }
 
     public Value makeMove(int spalte) throws Exception {
-       
+
         if (field[spalte][0] != Value.EMPTY) {
             throw new Exception("Nicht möglich!");
 
         }
-        for (int i = hauptZeilen-1; i >= 0; i--) {
+        for (int i = hauptZeilen - 1; i >= 0; i--) {
             if (field[spalte][i] == Value.EMPTY) {
                 field[spalte][i] = player;
 //                System.out.println("Spalte:" + spalte + " Zeile:" + i + " Spieler:" + player);
@@ -45,12 +47,25 @@ public class VierBL {
             player = Value.PLAYER1;
         }
         spielzug++;
-        return testWinner();
+        
+        //Speichern
+        Value winner=testWinner();
+        
+        
+        switch (winner){
+            
+            case PLAYER1: bl.add(new Spieler(Value.PLAYER1.getAction(), 1,0, 1));bl.add(new Spieler(Value.PLAYER2.getAction(), 0,1, 1));break;
+            case PLAYER2: bl.add(new Spieler(Value.PLAYER2.getAction(), 1,0, 1));bl.add(new Spieler(Value.PLAYER1.getAction(), 0,1, 1));break;
+            case DRAW: bl.add(new Spieler(Value.PLAYER1.getAction(), 0,0, 1));bl.add(new Spieler(Value.PLAYER2.getAction(), 0,0, 1));break;
+        }
+        
+        
+        return winner;
 
     }
 
     public Value getVAlueAt(int spalte) {
-        for (int i = hauptZeilen-1; i >= 0; i--) {
+        for (int i = hauptZeilen - 1; i >= 0; i--) {
             if (i > 0) {
                 if (field[spalte][i - 1] == Value.EMPTY) {
 
@@ -74,7 +89,7 @@ public class VierBL {
         //-----------Horizontal----------------
         for (int i = 0; i < hauptSpalten; i++) {
 
-            for (int j = 0; j < hauptZeilen-3; j++) {
+            for (int j = 0; j < hauptZeilen - 3; j++) {
                 if (field[i][j] == Value.PLAYER1
                         && field[i][j + 1] == Value.PLAYER1
                         && field[i][j + 2] == Value.PLAYER1
@@ -82,7 +97,7 @@ public class VierBL {
                     return Value.PLAYER1;
                 }
             }
-            for (int j = 0; j < hauptZeilen-3; j++) {
+            for (int j = 0; j < hauptZeilen - 3; j++) {
                 if (field[i][j] == Value.PLAYER2
                         && field[i][j + 1] == Value.PLAYER2
                         && field[i][j + 2] == Value.PLAYER2
@@ -93,7 +108,7 @@ public class VierBL {
 
         }
         //------------------------Vertikal----------------------
-        for (int i = 0; i < hauptSpalten-3; i++) {
+        for (int i = 0; i < hauptSpalten - 3; i++) {
 
             for (int j = 0; j < hauptZeilen; j++) {
 
@@ -116,9 +131,9 @@ public class VierBL {
         }
 
         //-----------------------diagonal------------------------
-        for (int i = 0; i < hauptSpalten-3; i++) {
+        for (int i = 0; i < hauptSpalten - 3; i++) {
 
-            for (int j = 0; j < hauptZeilen-3; j++) {
+            for (int j = 0; j < hauptZeilen - 3; j++) {
 
                 if (field[i][j] == Value.PLAYER1
                         && field[i + 1][j + 1] == Value.PLAYER1
@@ -127,7 +142,7 @@ public class VierBL {
                     return Value.PLAYER1;
                 }
             }
-            for (int j = 0; j < hauptZeilen-3; j++) {
+            for (int j = 0; j < hauptZeilen - 3; j++) {
 
                 if (field[i][j] == Value.PLAYER2
                         && field[i + 1][j + 1] == Value.PLAYER2
@@ -138,7 +153,7 @@ public class VierBL {
             }
         }
         //---------------------------------------------------------
-        for (int i = 0; i < hauptSpalten-3; i++) {
+        for (int i = 0; i < hauptSpalten - 3; i++) {
             for (int y = 3; y < hauptZeilen; y++) {
                 if (field[i][y] == Value.PLAYER1
                         && field[i + 1][y - 1] == Value.PLAYER1
@@ -148,7 +163,7 @@ public class VierBL {
                 }
             }
         }
-        for (int i = 0; i < hauptSpalten-3; i++) {
+        for (int i = 0; i < hauptSpalten - 3; i++) {
             for (int y = 3; y < hauptZeilen; y++) {
                 if (field[i][y] == Value.PLAYER2
                         && field[i + 1][y - 1] == Value.PLAYER2
@@ -160,7 +175,7 @@ public class VierBL {
         }
 
         //  System.out.println("Spielzug: "+spielzug);
-        if (spielzug == hauptSpalten*hauptZeilen) {
+        if (spielzug == hauptSpalten * hauptZeilen) {
             return Value.DRAW;
         }
 
