@@ -22,7 +22,7 @@ public class VierBLTest {
     @Parameterized.Parameters(name = "expRes=Res")
     public static Iterable<Object[]> data1() {
         return Arrays.asList(new Object[][]{
-            {Value.PLAYER2, Value.PLAYER2} ,
+            {Value.PLAYER2, Value.PLAYER2},
             {Value.PLAYER1, Value.PLAYER1},
             {Value.EMPTY, Value.EMPTY}
         });
@@ -56,52 +56,50 @@ public class VierBLTest {
         VierBL instance = new VierBL(10, 6);
         try {
             //player 2 sollte gewinnen
-            if(player==Value.PLAYER2){
-            instance.makeMove(0);
-            instance.makeMove(9);
-            instance.makeMove(1);
-            instance.makeMove(8);
-            instance.makeMove(3);
-            instance.makeMove(7);
-            instance.makeMove(4);
-            instance.makeMove(6);
-           
-        }
+            if (player == Value.PLAYER2) {
+                instance.makeMove(0);
+                instance.makeMove(9);
+                instance.makeMove(1);
+                instance.makeMove(8);
+                instance.makeMove(3);
+                instance.makeMove(7);
+                instance.makeMove(4);
+                instance.makeMove(6);
+
+            }
             //player 1 sollte gewinnen
-            if(player==Value.PLAYER1){
-               instance.makeMove(6);
-            instance.makeMove(0);
-            instance.makeMove(9);
-            instance.makeMove(1);
-            instance.makeMove(8);
-            instance.makeMove(3);
-            instance.makeMove(7);
-            instance.makeMove(4);
-            
-            
-           
-        }
+            if (player == Value.PLAYER1) {
+                instance.makeMove(6);
+                instance.makeMove(0);
+                instance.makeMove(9);
+                instance.makeMove(1);
+                instance.makeMove(8);
+                instance.makeMove(3);
+                instance.makeMove(7);
+                instance.makeMove(4);
+
+            }
             //keiner sollte gewinnen
-            if(player==Value.EMPTY){
-            instance.makeMove(0);
-            instance.makeMove(1);
-            instance.makeMove(2);
-            instance.makeMove(3);
-            instance.makeMove(4);
-            instance.makeMove(5);
-            instance.makeMove(6);
-            instance.makeMove(7);
-           
-        }
+            if (player == Value.EMPTY) {
+                instance.makeMove(0);
+                instance.makeMove(1);
+                instance.makeMove(2);
+                instance.makeMove(3);
+                instance.makeMove(4);
+                instance.makeMove(5);
+                instance.makeMove(6);
+                instance.makeMove(7);
+
+            }
 
         } catch (Exception ex) {
             Logger.getLogger(VierBLTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         Value expResult = winner;
         Value result = instance.testWinner();
-        System.out.println("expResult: "+expResult+"   result: "+result);
+        System.out.println("expResult: " + expResult + "   result: " + result);
         assertEquals(expResult, result);
-     
+
     }
 
 }
