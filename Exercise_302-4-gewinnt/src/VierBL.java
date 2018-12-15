@@ -6,7 +6,7 @@ public class VierBL {
     private int[] spalteZeile = new int[2];
     private int spielzug;
     private int hauptSpalten = 12, hauptZeilen = 11;
-    private BestenListeTabel bl=new BestenListeTabel();
+    private BestenListeTabel bl = new BestenListeTabel();
 
     public VierBL(int sp, int ze) {
         hauptSpalten = sp;
@@ -16,8 +16,7 @@ public class VierBL {
     }
 
     public void reset() {
-       
-        
+
         for (int spalten = 0; spalten < hauptSpalten; spalten++) {
             for (int zeilen = 0; zeilen < hauptZeilen; zeilen++) {
                 field[spalten][zeilen] = Value.EMPTY;
@@ -36,7 +35,7 @@ public class VierBL {
         for (int i = hauptZeilen - 1; i >= 0; i--) {
             if (field[spalte][i] == Value.EMPTY) {
                 field[spalte][i] = player;
-//                System.out.println("Spalte:" + spalte + " Zeile:" + i + " Spieler:" + player);
+//              System.out.println("Spalte:" + spalte + " Zeile:" + i + " Spieler:" + player);
                 break;
             }
         }
@@ -47,21 +46,32 @@ public class VierBL {
             player = Value.PLAYER1;
         }
         spielzug++;
-        
+
         //Speichern
-        Value winner=testWinner();
-        
-        
-        switch (winner){
-            
-            case PLAYER1: bl.add(new Spieler(Value.PLAYER1.getAction(), 1,0, 1));bl.add(new Spieler(Value.PLAYER2.getAction(), 0,1, 1));break;
-            case PLAYER2: bl.add(new Spieler(Value.PLAYER2.getAction(), 1,0, 1));bl.add(new Spieler(Value.PLAYER1.getAction(), 0,1, 1));break;
-            case DRAW: bl.add(new Spieler(Value.PLAYER1.getAction(), 0,0, 1));bl.add(new Spieler(Value.PLAYER2.getAction(), 0,0, 1));break;
+        Value winner = testWinner();
+
+        switch (winner) {
+
+            case PLAYER1:
+                bl.add(new Spieler(Value.PLAYER1.getAction(), 1, 0, 1));
+                bl.add(new Spieler(Value.PLAYER2.getAction(), 0, 1, 1));
+                break;
+            case PLAYER2:
+                bl.add(new Spieler(Value.PLAYER2.getAction(), 1, 0, 1));
+                bl.add(new Spieler(Value.PLAYER1.getAction(), 0, 1, 1));
+                break;
+            case DRAW:
+                bl.add(new Spieler(Value.PLAYER1.getAction(), 0, 0, 1));
+                bl.add(new Spieler(Value.PLAYER2.getAction(), 0, 0, 1));
+                break;
         }
-        
-        
+
         return winner;
 
+    }
+
+    public Value getPlayer() {
+        return player;
     }
 
     public Value getVAlueAt(int spalte) {

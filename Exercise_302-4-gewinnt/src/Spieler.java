@@ -1,11 +1,10 @@
 
 import java.io.Serializable;
 
+public class Spieler implements Serializable {
 
-
-public class Spieler implements Serializable{
-private String name;
-private int anzWins, anzLos,anzGames;
+    private String name;
+    private int anzWins, anzLos, anzGames;
 
     public Spieler(String name, int anzWins, int anzLos, int anzGames) {
         this.name = name;
@@ -46,5 +45,4 @@ private int anzWins, anzLos,anzGames;
         this.anzGames = anzGames;
     }
 
-   
 }

@@ -34,15 +34,15 @@ public class DialogFürName extends JDialog {
         this.setSize(600, 300);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridLayout(5, 2));
-        this.add(new JLabel("Name(Player 1):"));
+        this.add(new JLabel("  Name(Player 1):"));
         JTextField name1 = new JTextField("Player1");
 
         this.add(name1);
-        this.add(new JLabel("Name(Player 2): "));
+        this.add(new JLabel("  Name(Player 2): "));
         JTextField name2 = new JTextField("Player2");
         this.add(name2);
-        this.add(new JLabel("Spalten: "));
-       JSlider spalten = new JSlider();
+        this.add(new JLabel("  Spalten: "));
+        JSlider spalten = new JSlider();
 		spalten.setMinimum(5);
 		spalten.setMaximum(25);
 		spalten.setMajorTickSpacing(5);
@@ -54,7 +54,7 @@ public class DialogFürName extends JDialog {
         spalten.setBackground(Color.pink);
       
         this.add(spalten);
-        this.add(new JLabel("Zeilen:"));
+        this.add(new JLabel("  Zeilen:"));
         JSlider zeilen = new JSlider();
 		zeilen.setMinimum(5);
 		zeilen.setMaximum(25);

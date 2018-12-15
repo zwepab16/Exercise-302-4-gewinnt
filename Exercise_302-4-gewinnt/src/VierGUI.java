@@ -107,15 +107,12 @@ public class VierGUI extends JFrame {
         JMenuItem liste = new JMenuItem("Bestenliste");
         liste.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                System.out.println("sfgdfg");
-               
-                BestenListeGUI d=new BestenListeGUI();
-              d.setVisible(true);
+                BestenListeGUI d = new BestenListeGUI();
+                d.setVisible(true);
             }
         });
         liste.setBorder(new LineBorder(Color.black, 2));
         menueBar.add(liste);
-        
         menü.add(menueBar);
         menü.add(currentPlayer);
         menü.add(buttonPanel);
@@ -124,16 +121,15 @@ public class VierGUI extends JFrame {
         JPanel playground = new JPanel();
         playground.setLayout(new GridLayout(hauptZeilen, hauptSpalten));
         playground.setBackground(Color.LIGHT_GRAY);
+
         for (int i = 0; i < hauptZeilen; i++) {
             for (int j = 0; j < hauptSpalten; j++) {
-
                 playground.add(labels[j][i]);
             }
-
         }
         this.add(playground);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        
     }
 
     public void move(ActionEvent event) {
@@ -142,9 +138,9 @@ public class VierGUI extends JFrame {
             JLabel l = new JLabel();
             int platz = Integer.parseInt(b.getName());
 
-//            System.out.println(b.getName() + "Platz");
+//          System.out.println(b.getName() + "Platz");
             Value winner = bl.makeMove(platz);
-//            System.out.println(winner);
+//          System.out.println(winner);
 
             Value val = bl.getVAlueAt(platz);
             switch (val) {
